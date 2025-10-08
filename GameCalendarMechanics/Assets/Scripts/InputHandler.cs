@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class InputHandler : MonoBehaviour
 {
     public PlayerController CharacterController; // Reference to character player controller component
-    private InputActions moveAction, lookAction;
+    private InputAction moveAction, lookAction;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
