@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public Transform followTarget, lookTarget;
+    public float followSpeed = 10f;
 
-    // Update is called once per frame
-    void Update()
+    // Late update prevents jittery camera movements
+    private void LateUpdate()
     {
-        
+        Vector3 targetPos = followTarget.position;
+        // Update camera position
+        transform.position = Vector3.Lerp(transform.position, targetPos, followSpeed * Time.deltaTime);
+
+        transform.LookAt(lookTarget);
     }
 }

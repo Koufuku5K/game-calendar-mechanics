@@ -4,12 +4,14 @@ using UnityEngine.InputSystem;
 public class InputHandler : MonoBehaviour
 {
     public PlayerController CharacterController; // Reference to character player controller component
-    private InputAction moveAction, lookAction;
+    private InputAction moveAction, jumpAction;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         moveAction = InputSystem.actions.FindAction("Move");
-        lookAction = InputSystem.actions.FindAction("Look");
+
+        jumpAction = InputSystem.actions.FindAction("Jump"); // button subscribe, not a vector
+        jumpAction.performed += OnJump;
 
         Cursor.visible = false;
     }
@@ -19,8 +21,10 @@ public class InputHandler : MonoBehaviour
     {
         Vector2 movementVector = moveAction.ReadValue<Vector2>();
         CharacterController.Move(movementVector);
+    }
 
-        Vector2 lookVector = lookAction.ReadValue<Vector2>();
-        CharacterController.Rotate(lookVector);
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        CharacterController.Jump();
     }
 }
